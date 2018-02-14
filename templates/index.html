@@ -10,6 +10,9 @@
 </head>
 <body>
 Hello World
+    <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+    <input type=file name=photo>
+    <input type="submit">
 <p>{{ str1 }}</p>
     
     <div id="hearts">
