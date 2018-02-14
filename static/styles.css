@@ -2,6 +2,7 @@ body{
 background-color: pink;
 }
 
+
 html,
 body,
 #hearts { height: 100%;
@@ -16,6 +17,44 @@ body { overflow: hidden }
     background-repeat: no-repeat;
     position: absolute;
 }
+
+.taylor{
+        width: 200px;
+    height: 200px;
+    background-image: url(Taylor-Swift.png);
+            background-size: contain;
+    background-repeat: no-repeat;
+}
+.introimg{
+    width: 200px;
+    height: 200px;
+
+
+    -webkit-animation: loop-img 7s linear;
+    animation-fill-mode: forwards;
+            background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.inline{
+    display: inline-block;
+}
+
+
+@keyframes loop-img { 
+    0% { background-image: url(IntroIMG/calvin.png); } 
+    12% { background-image: url(IntroIMG/conor.png); } 
+    24% { background-image: url(IntroIMG/harry.png); } 
+    36% { background-image: url(IntroIMG/jake.png); } 
+    48% { background-image: url(IntroIMG/joe.png); } 
+    60% { background-image: url(IntroIMG/johnmayer.png); } 
+    72% { background-image: url(IntroIMG/tayla.png); } 
+    84% { background-image: url(IntroIMG/tom.png); }
+    96% { background-image: url(IntroIMG/you.png); }
+     100% { background-image: url(IntroIMG/you.png); }
+}
+
 
 .x1 {
     -webkit-transform: scale(0.9);
