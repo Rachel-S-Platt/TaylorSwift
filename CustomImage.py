@@ -10,7 +10,7 @@ from imgaug import augmenters as iaa
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-PATH = str(os.getcwd()) + '/TaylorSwift/Taylorswiftboyfriends/'
+PATH = str(os.getcwd()) + '/Taylorswiftboyfriends/'
 IMAGE_SIZE = 64
 BF_DIRECTORIES = ["Calvinharris", "Conor Kennedy", "HarryStyles", "Jake Gyllenhaal", "Joe Jonas", "John Mayer", "Taylor Lautner", "TomHiddleston"]
 STEPS = 1000
@@ -81,30 +81,34 @@ full1_drop = tf.nn.dropout(full_1, keep_prob=keep_prob)
 y_conv = full_layer(full1_drop, 8)
 
 saver = tf.train.Saver()
-with tf.Session() as sess:
-    pass_x = np.array([image])
-    # print(pass_x.shape)
-    #
-    # print(tf.global_variables())
-    sess.run(tf.global_variables_initializer())
 
-    # saver = tf.train.import_meta_graph(META_PATH)
-    saver.restore(sess, SESS_PATH)
-    # print("\n\n")
-    # print(tf.global_variables())
-    # print(sess.run('weight:0'))
+def run_the_code():
+    with tf.Session() as sess:
+        pass_x = np.array([image])
+        # print(pass_x.shape)
+        #
+        # print(tf.global_variables())
+        sess.run(tf.global_variables_initializer())
+
+        # saver = tf.train.import_meta_graph(META_PATH)
+        saver.restore(sess, SESS_PATH)
+        # print("\n\n")
+        # print(tf.global_variables())
+        # print(sess.run('weight:0'))
 
 
 
-    # w1 = tf.get_default_graph().get_tensor_by_name("weight:0")
-    # print(w1)
+        # w1 = tf.get_default_graph().get_tensor_by_name("weight:0")
+        # print(w1)
 
-    array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
-    array = array[0]
-    results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:3]
-    mean = np.sum(np.absolute(array))
-    max_val = np.max(array)
-    # print(max_val)
-    print(results[0][1] + ": " + str(results[0][0] / mean))
-    print(results[1][1] + ": " + str(results[1][0] / mean))
-    print(results[2][1] + ": " + str(results[2][0] / mean))
+        array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
+        array = array[0]
+        results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:3]
+        mean = np.sum(np.absolute(array))
+        max_val = np.max(array)
+        # print(max_val)
+        print(results[0][1] + ": " + str(results[0][0] / mean))
+        print(results[1][1] + ": " + str(results[1][0] / mean))
+        print(results[2][1] + ": " + str(results[2][0] / mean))
+
+run_the_code()
