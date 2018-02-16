@@ -14,10 +14,12 @@
     <h1 class="inline">+</h1>
     <div class="introimg inline"></div>
     </div>
-    <audio controls autoplay>
-                <source src="static/music/{{ music_files[0] }}" type="audio/mp3">
-                Your browser does not support this audio format.
-    </audio>
+    {% if boyfriend_result != "" and music_files_number != -1%}
+      <audio controls autoplay>
+                  <source src="static/music/{{ music_files[music_files_number] }}" type="audio/mp3">
+                  Your browser does not support this audio format.
+      </audio>
+    {% endif %}
 
 Hello World
     <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
@@ -32,6 +34,8 @@ Hello World
         <div class="heart x4"></div>
         <div class="heart x5"></div>
 </div>
-<h1>Your boyfriend equivalent is {{ boyfriend_result }}</h1>
+{% if boyfriend_result != "" %}
+  <h1>Your boyfriend equivalent is {{ boyfriend_result }}</h1>
+{% endif %}
 </body>
 </html>

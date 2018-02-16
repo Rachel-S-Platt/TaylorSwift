@@ -114,6 +114,17 @@ def run_the_code(pass_x):
 ########### END #############
 #############################
 
+song_map = {
+    "Calvinharris": 3,
+    "Conor Kennedy": 7,
+    "HarryStyles": 2,
+    "Jake Gyllenhaal": 0,
+    "Joe Jonas": 6,
+    "John Mayer": 1,
+    "Taylor Lautner": 5,
+    "TomHiddleston": 4
+}
+
 music_dir = './static/music'
 
 app = Flask(__name__)
@@ -143,11 +154,13 @@ def upload():
         pass_x = np.array([image])
 
         results = run_the_code(pass_x)
+
         boyfriend_result = results[0][1]
+        music_files_number = song_map[boyfriend_result]
         print(results)
 
         # return filename
-    return render_template('index.html', music_files = music_files, music_files_number = music_files_number, song_to_play=song_to_play, boyfriend_result=boyfriend_result)
+    return render_template('index.html', music_files = music_files, music_files_number = music_files_number, boyfriend_result=boyfriend_result)
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):

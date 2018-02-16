@@ -41,15 +41,22 @@ body { overflow: hidden }
     display: inline-block;
 }
 
+div.introcontainer {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 50%;
+}
 
-@keyframes loop-img { 
-    0% { background-image: url(IntroIMG/calvin.png); } 
-    12% { background-image: url(IntroIMG/conor.png); } 
-    24% { background-image: url(IntroIMG/harry.png); } 
-    36% { background-image: url(IntroIMG/jake.png); } 
-    48% { background-image: url(IntroIMG/joe.png); } 
-    60% { background-image: url(IntroIMG/johnmayer.png); } 
-    72% { background-image: url(IntroIMG/tayla.png); } 
+
+@keyframes loop-img {
+    0% { background-image: url(IntroIMG/calvin.png); }
+    12% { background-image: url(IntroIMG/conor.png); }
+    24% { background-image: url(IntroIMG/harry.png); }
+    36% { background-image: url(IntroIMG/jake.png); }
+    48% { background-image: url(IntroIMG/joe.png); }
+    60% { background-image: url(IntroIMG/johnmayer.png); }
+    72% { background-image: url(IntroIMG/tayla.png); }
     84% { background-image: url(IntroIMG/tom.png); }
     96% { background-image: url(IntroIMG/you.png); }
      100% { background-image: url(IntroIMG/you.png); }
@@ -101,35 +108,35 @@ body { overflow: hidden }
     -webkit-transform: scale(0.8);
     -moz-transform: scale(0.8);
     transform: scale(0.8);
-    opacity: 0.3; 
+    opacity: 0.3;
     -webkit-animation: moveclouds 7s linear infinite, sideWays 10s ease-in-out infinite alternate;
     -moz-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
     -o-animation: moveclouds 7s linear infinite, sideWays 1s ease-in-out infinite alternate;
 }
-@-webkit-keyframes moveclouds { 
-    0% { 
+@-webkit-keyframes moveclouds {
+    0% {
         top: 500px;
     }
-    100% { 
+    100% {
         top: -500px;
     }
 }
 
-@-webkit-keyframes sideWays { 
-    0% { 
+@-webkit-keyframes sideWays {
+    0% {
         margin-left:100px;
     }
-    100% { 
+    100% {
         margin-left:800px;
     }
 }
 
-@-moz-keyframes moveclouds {     
-    0% { 
+@-moz-keyframes moveclouds {
+    0% {
         top: 500px;
     }
 
-    100% { 
+    100% {
         top: -500px;
     }
 }
@@ -143,10 +150,10 @@ body { overflow: hidden }
     }
 }
 @-o-keyframes moveclouds {
-    0% { 
+    0% {
         top: 500px;
     }
-    100% { 
+    100% {
         top: -500px;
     }
 }
