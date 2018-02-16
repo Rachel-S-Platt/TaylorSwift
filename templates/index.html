@@ -3,30 +3,29 @@
 
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 
 <title>Hello World Template</title>
 </head>
 <body>
+  <h1>Taylor'd To You</h1>
     <div class="introcontainer">
     <div class="taylor inline"></div>
     <h1 class="inline">+</h1>
     <div class="introimg inline"></div>
     </div>
-    {% if boyfriend_result != "" and music_files_number != -1%}
-      <audio controls autoplay>
-                  <source src="static/music/{{ music_files[music_files_number] }}" type="audio/mp3">
-                  Your browser does not support this audio format.
-      </audio>
+    <div class="center_this">
+
+
+      <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+      <input type=file name=photo>
+      <input type="submit">
+    </div>
+    {% if boyfriend_result != "" %}
+      <h2>Your match is {{ boyfriend_result }}!</h2>
     {% endif %}
-
-Hello World
-    <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
-    <input type=file name=photo>
-    <input type="submit">
-<p>{{ str1 }}</p>
-
     <div id="hearts">
         <div class="heart x1"></div>
         <div class="heart x2"></div>
@@ -34,8 +33,9 @@ Hello World
         <div class="heart x4"></div>
         <div class="heart x5"></div>
 </div>
-{% if boyfriend_result != "" %}
-  <h1>Your boyfriend equivalent is {{ boyfriend_result }}</h1>
-{% endif %}
+
+
+
+
 </body>
 </html>

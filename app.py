@@ -79,35 +79,22 @@ y_conv = full_layer(full1_drop, 8)
 
 saver = tf.train.Saver()
 
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+saver.restore(sess, SESS_PATH)
+
 def run_the_code(pass_x):
-    with tf.Session() as sess:
-        # print(pass_x.shape)
-        #
-        # print(tf.global_variables())
-        sess.run(tf.global_variables_initializer())
+    array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
+    array = array[0]
+    results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:3]
+    mean = np.sum(np.absolute(array))
+    max_val = np.max(array)
+    # print(max_val)
+    print(results[0][1] + ": " + str(results[0][0] / mean))
+    print(results[1][1] + ": " + str(results[1][0] / mean))
+    print(results[2][1] + ": " + str(results[2][0] / mean))
 
-        # saver = tf.train.import_meta_graph(META_PATH)
-        saver.restore(sess, SESS_PATH)
-        # print("\n\n")
-        # print(tf.global_variables())
-        # print(sess.run('weight:0'))
-
-
-
-        # w1 = tf.get_default_graph().get_tensor_by_name("weight:0")
-        # print(w1)
-
-        array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
-        array = array[0]
-        results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:3]
-        mean = np.sum(np.absolute(array))
-        max_val = np.max(array)
-        # print(max_val)
-        print(results[0][1] + ": " + str(results[0][0] / mean))
-        print(results[1][1] + ": " + str(results[1][0] / mean))
-        print(results[2][1] + ": " + str(results[2][0] / mean))
-
-        return results
+    return results
 
 
 
@@ -141,7 +128,6 @@ def upload():
     print(os.listdir(music_dir))
     song_to_play = -1
     music_files = [f for f in os.listdir(music_dir) if f.endswith('mp3')]
-    music_files_number = len(music_files)
     boyfriend_result = ""
     print(music_files)
     if request.method == 'POST' and 'photo' in request.files:
@@ -156,11 +142,11 @@ def upload():
         results = run_the_code(pass_x)
 
         boyfriend_result = results[0][1]
-        music_files_number = song_map[boyfriend_result]
+        song_to_play = song_map[boyfriend_result]
         print(results)
 
         # return filename
-    return render_template('index.html', music_files = music_files, music_files_number = music_files_number, boyfriend_result=boyfriend_result)
+    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play)
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):

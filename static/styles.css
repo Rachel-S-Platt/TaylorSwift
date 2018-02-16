@@ -2,6 +2,36 @@ body{
 background-color: pink;
 }
 
+h1 {
+  font-family: 'Bitter', serif;
+  font-size: 80px;
+  color: white;
+  text-align: center;
+}
+
+h2{
+  font-family: 'Bitter', serif;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+}
+
+.center_this {
+  display: block;
+  margin-left: 35%;
+  margin-right: auto;
+  width: 27%;
+}
+
+.button {
+  background-color: white;
+  font-family: 'Bitter', serif;
+  font-size: 18px;
+  padding: 15px;
+  color: lightgray;
+  border: 2px solid lightgray;
+  border-radius: 20px;
+}
 
 html,
 body,
@@ -43,9 +73,10 @@ body { overflow: hidden }
 
 div.introcontainer {
    display: block;
-   margin-left: auto;
+   /* margin-left: auto; */
    margin-right: auto;
-   width: 50%;
+   width: 37%;
+   margin-left: 35%;
 }
 
 
