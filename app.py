@@ -11,6 +11,10 @@ from sklearn.model_selection import train_test_split
 import imgaug as ia
 from imgaug import augmenters as iaa
 
+from PIL import Image
+from skimage import io
+import dlib
+
 # Alex's Tensorflow code
 ########################################
 
@@ -21,6 +25,7 @@ IMAGE_SIZE = 64
 BF_DIRECTORIES = ["Calvinharris", "Conor Kennedy", "HarryStyles", "Jake Gyllenhaal", "Joe Jonas", "John Mayer", "Taylor Lautner", "TomHiddleston"]
 STEPS = 1000
 DIR = './'
+BF_IMAGE_DIR = "./static/img/Boyfriends/"
 
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=.1)
@@ -84,33 +89,71 @@ sess.run(tf.global_variables_initializer())
 saver.restore(sess, SESS_PATH)
 
 def run_the_code(pass_x):
-
-
-
     array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
     array = array[0]
-    mean = np.sum(np.absolute(array))
-    max_val = np.max(array)
+
     min_val = np.min(array)
     if min_val < 0:
         min_val = - min_val
-    print(array)
     array = array + min_val
-    print(array)
     array = array / np.sum(array)
-    print(array)
+
     results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:8]
-    # print(max_val)
-
-#    print(results[1][1] + ": " + str(results[1][0]))
-#    print(results[2][1] + ": " + str(results[2][0]))
-
     return (results)
 
 
 
 ########### END #############
-#############################
+
+
+######## FACE BLEND ########
+
+def detect_faces(image):
+
+    # Create a face detector
+    face_detector = dlib.get_frontal_face_detector()
+
+    # Run detector and get bounding boxes of the faces on image.
+    detected_faces = face_detector(image, 1)
+    face_frames = [(x.left(), x.top(),
+                    x.right(), x.bottom()) for x in detected_faces]
+
+    return face_frames
+
+def combine_faces(name1, name2, name3):
+    layer1 = io.imread(name1)
+    detect1 = detect_faces(layer1)
+
+    for n, face_rect in enumerate(detect1):
+        layer1 = Image.fromarray(layer1).crop(face_rect)
+        layer1.save("Test.png")
+
+    layer2 = io.imread(name2)
+    detect2 = detect_faces(layer2)
+
+    for n, face_rect in enumerate(detect2):
+        layer2 = Image.fromarray(layer2).crop(face_rect)
+
+    layer3 = io.imread(name3)
+    detect3 = detect_faces(layer3)
+
+    for n, face_rect in enumerate(detect3):
+        layer3 = Image.fromarray(layer3).crop(face_rect)
+
+
+    layer1 = layer1.convert("RGBA")
+    layer2 = layer2.convert("RGBA")
+    layer3 = layer3.convert("RGBA")
+
+    layer1 = layer1.resize((300, 300), Image.BILINEAR)
+    layer2 = layer2.resize((300, 300), Image.BILINEAR)
+    layer3 = layer3.resize((300, 300), Image.BILINEAR)
+
+    new_img = Image.blend(layer1, layer2, 0.5)
+    new_img2 = Image.blend(new_img, layer3, 0.5)
+    new_img2.save("./static/img/Overlay/Blend.png","PNG")
+
+########## MAPS ###########
 
 song_map = {
     "Calvinharris": 3,
@@ -134,6 +177,19 @@ length_map = {
     "TomHiddleston": 3
 }
 
+image_map = {
+    "Calvinharris": "CalvinHarris.jpg",
+    "Conor Kennedy": "ConorKennedy.jpg",
+    "HarryStyles": "HarryStyles.jpg",
+    "Jake Gyllenhaal": "JakeGyllanhaal.jpg",
+    "Joe Jonas": "JoeJonas.jpg",
+    "John Mayer": "JohnMayer.jpg",
+    "Taylor Lautner": "TaylorLautner.jpg",
+    "TomHiddleston": "TomHiddleston.jpg"
+}
+
+
+######## ROUTES ########
 music_dir = './static/music'
 
 app = Flask(__name__)
@@ -149,6 +205,7 @@ configure_uploads(app, photos)
 def upload():
     print(os.listdir(music_dir))
     song_to_play = -1
+    blend = False
     music_files = [f for f in os.listdir(music_dir) if f.endswith('mp3')]
     r1=""
     r2=""
@@ -173,8 +230,6 @@ def upload():
         results = run_the_code(pass_x)
 
         boyfriend_result = results[0][1]
-        #print ("HELLOOOOOO"+ str(boyfriend_result))
-        #print(results[1][1] + ": " + str(results[1][0]))
 
         r1=results[1][1] + ": " + str(results[1][0])
         r2=results[2][1] + ": " + str(results[2][0])
@@ -186,20 +241,19 @@ def upload():
 
         print (results)
 
-        #print("LENGTH" + str(length_map[results[0][1]]))
-        #print("HEYSFSL" + str(results[0][0]))
-
         length_of_rel= str(length_map[results[0][1]]*results[0][0]+length_map[results[1][1]]*results[1][0]+ length_map[results[2][1]]*results[2][0] + length_map[results[3][1]]*results[3][0] + length_map[results[4][1]]*results[4][0] + length_map[results[5][1]]*results[5][0] + length_map[results[6][1]]*results[6][0])
-        
-        #length_of_rel= str(length_map[results[0][2]]*results[2][0])
-
-        #print ("HEEYYEYYYYY"+length_of_rel)
-
         song_to_play = song_map[boyfriend_result]
+
+        bf_image1 = BF_IMAGE_DIR + image_map[results[0][1]]
+        bf_image2 = BF_IMAGE_DIR + image_map[results[1][1]]
+        bf_image3 = BF_IMAGE_DIR + image_map[results[2][1]]
+
+        combine_faces(bf_image2, bf_image3, bf_image1)
+        blend = True
+
         print(results)
 
-        # return filename
-    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel)
+    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel, blend=blend)
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):
