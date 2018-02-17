@@ -18,7 +18,7 @@ def detect_faces(image):
     return face_frames
 
 # Load image
-img_path = 'Alex.jpg'
+img_path = 'static/img/goat.jpeg'
 image = io.imread(img_path)
 
 # Detect faces
@@ -28,6 +28,6 @@ detected_faces = detect_faces(image)
 for n, face_rect in enumerate(detected_faces):
     face = Image.fromarray(image).crop(face_rect)
     face.save("Test.jpg")
-    plt.subplot(1, len(detected_faces), n+1)
-    plt.axis('off')
-    plt.imshow(face)
+#    plt.subplot(1, len(detected_faces), n+1)
+#    plt.axis('off')
+#    plt.imshow(face)

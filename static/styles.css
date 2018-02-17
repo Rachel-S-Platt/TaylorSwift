@@ -3,16 +3,16 @@ background-color: pink;
 }
 
 h1 {
-  font-family: 'Bitter', serif;
-  font-size: 80px;
-  color: white;
+  font-family: 'Satisfaction', serif;
+  font-size: 60px;
+  color: black;
   text-align: center;
 }
 
 h2{
-  font-family: 'Bitter', serif;
-  font-size: 60px;
-  color: white;
+  font-family: 'Satisfaction', serif;
+  font-size: 40px;
+  color: black;
   text-align: center;
 }
 
@@ -37,7 +37,7 @@ html,
 body,
 #hearts { height: 100%;
 }
-body { overflow: hidden }
+
 #hearts { padding: 100px 0 }
 .heart {
     width: 60px;
@@ -79,6 +79,25 @@ div.introcontainer {
    margin-left: 35%;
 }
 
+
+input[type="submit"] 
+
+{
+ border: 0;
+ background: none;
+ box-shadow: none;
+ border-radius: 0px;
+}
+
+
+input[type="file"] 
+
+{
+ border: 0;
+ background: none;
+ box-shadow: none;
+ border-radius: 0px;
+}
 
 @keyframes loop-img {
     0% { background-image: url(IntroIMG/calvin.png); }

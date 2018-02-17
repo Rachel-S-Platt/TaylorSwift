@@ -22,10 +22,14 @@
       <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
       <input type=file name=photo>
       <input type="submit">
-    </div>
+        </form>
     {% if boyfriend_result != "" %}
       <h2>Your match is {{ boyfriend_result }}!</h2>
     {% endif %}
+    <h4>Relationship Scorecard:</h4>
+     <h4>{{r1}}<br>{{r2}}<br>{{r3}}<br>{{r4}}<br>{{r5}}<br>{{r6}}<br>{{r7}}<br></h4>
+    
+    <h4> Length of relationship: {{length_of_rel}} months</h4>
     <div id="hearts">
         <div class="heart x1"></div>
         <div class="heart x2"></div>
@@ -33,7 +37,7 @@
         <div class="heart x4"></div>
         <div class="heart x5"></div>
 </div>
-
+    </div>
 
 
 

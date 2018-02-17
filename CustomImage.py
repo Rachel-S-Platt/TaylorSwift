@@ -92,23 +92,40 @@ def run_the_code():
 
         # saver = tf.train.import_meta_graph(META_PATH)
         saver.restore(sess, SESS_PATH)
-        # print("\n\n")
-        # print(tf.global_variables())
-        # print(sess.run('weight:0'))
-
-
-
-        # w1 = tf.get_default_graph().get_tensor_by_name("weight:0")
-        # print(w1)
 
         array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
         array = array[0]
-        results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:3]
         mean = np.sum(np.absolute(array))
         max_val = np.max(array)
+        min_val = np.min(array)
+        if min_val < 0:
+            min_val = - min_val
+        print(array)
+        array = array + min_val
+        print(array)
+        array = array / np.sum(array)
+        print(array)
+        results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:8]
         # print(max_val)
-        print(results[0][1] + ": " + str(results[0][0] / mean))
-        print(results[1][1] + ": " + str(results[1][0] / mean))
-        print(results[2][1] + ": " + str(results[2][0] / mean))
+        r1=results[0][1] + ": " + str(results[0][0])
+        print(results[0][1] + ": " + str(results[0][0]))
+        r2=results[1][1] + ": " + str(results[1][0])
+        print(results[1][1] + ": " + str(results[1][0]))
+        r3= results[2][1] + ": " + str(results[2][0])
+        print(results[2][1] + ": " + str(results[2][0]))
+        r4= results[3][1] + ": " + str(results[3][0])
+        print(results[3][1] + ": " + str(results[3][0]))
+        r5= results[4][1] + ": " + str(results[4][0])
+        print(results[4][1] + ": " + str(results[4][0]))
+        r6= results[5][1] + ": " + str(results[5][0])
+        print(results[5][1] + ": " + str(results[5][0]))
+        r7= results[6][1] + ": " + str(results[6][0])
+        print(results[6][1] + ": " + str(results[6][0]))
+        r8= results[7][1] + ": " + str(results[7][0])
+        print(results[7][1] + ": " + str(results[7][0]))
+    
+
+
+    return results
 
 run_the_code()
