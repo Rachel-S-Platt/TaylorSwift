@@ -207,6 +207,7 @@ def upload():
     song_to_play = -1
     blend = False
     music_files = [f for f in os.listdir(music_dir) if f.endswith('mp3')]
+    r0=""
     r1=""
     r2=""
     r3=""
@@ -231,6 +232,7 @@ def upload():
 
         boyfriend_result = results[0][1]
 
+        r0=results[0][1] + ": " + str(results[0][0])
         r1=results[1][1] + ": " + str(results[1][0])
         r2=results[2][1] + ": " + str(results[2][0])
         r3=results[3][1] + ": " + str(results[3][0])
@@ -253,7 +255,7 @@ def upload():
 
         print(results)
 
-    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel, blend=blend)
+    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r0=r0, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel, blend=blend)
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):

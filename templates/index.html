@@ -25,13 +25,14 @@
         <h2>Your match is {{ boyfriend_result }}!</h2>
       {% endif %}
 
-      <!-- <img src="/static/img/Overlay/Blend.png"> -->
+      <h4>Relationship Scorecard:</h4>
+      <h4>{{r0}}<br>{{r1}}<br>{{r2}}<br>{{r3}}<br>{{r4}}<br>{{r5}}<br>{{r6}}<br>{{r7}}<br></h4>
 
       {% if blend == True %}
+        <h4>We took your top 3 matches and combined them</h4>
+        <h4>This is probably what you look like</h4>
         <img src="/static/img/Overlay/Blend.png" />
       {% endif %}
-      <h4>Relationship Scorecard:</h4>
-      <h4>{{r1}}<br>{{r2}}<br>{{r3}}<br>{{r4}}<br>{{r5}}<br>{{r6}}<br>{{r7}}<br></h4>
 
       <h4> Length of relationship: {{length_of_rel}} months</h4>
       <div id="hearts">
