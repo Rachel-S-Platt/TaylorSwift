@@ -84,9 +84,6 @@ sess.run(tf.global_variables_initializer())
 saver.restore(sess, SESS_PATH)
 
 def run_the_code(pass_x):
-
-
-
     array = sess.run(y_conv, feed_dict={x: pass_x, keep_prob: 1.0})
     array = array[0]
     mean = np.sum(np.absolute(array))
@@ -99,13 +96,13 @@ def run_the_code(pass_x):
     print(array)
     array = array / np.sum(array)
     print(array)
-    results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:8]
+    results = sorted(zip(array, BF_DIRECTORIES), reverse=True)[:3]
     # print(max_val)
+    print(results[0][1] + ": " + str(results[0][0] / mean))
+    print(results[1][1] + ": " + str(results[1][0] / mean))
+    print(results[2][1] + ": " + str(results[2][0] / mean))
 
-#    print(results[1][1] + ": " + str(results[1][0]))
-#    print(results[2][1] + ": " + str(results[2][0]))
-
-    return (results)
+    return results
 
 
 
@@ -123,17 +120,6 @@ song_map = {
     "TomHiddleston": 4
 }
 
-length_map = {
-    "Calvinharris": 15,
-    "Conor Kennedy": 3,
-    "HarryStyles": 1,
-    "Jake Gyllenhaal": 2,
-    "Joe Jonas": 2,
-    "John Mayer": 2,
-    "Taylor Lautner": 4,
-    "TomHiddleston": 3
-}
-
 music_dir = './static/music'
 
 app = Flask(__name__)
@@ -149,17 +135,9 @@ configure_uploads(app, photos)
 def upload():
     print(os.listdir(music_dir))
     song_to_play = -1
+    music_files = []
     music_files = [f for f in os.listdir(music_dir) if f.endswith('mp3')]
-    r1=""
-    r2=""
-    r3=""
-    r4=""
-    r5=""
-    r6=""
-    r7=""
-
     boyfriend_result = ""
-    length_of_rel=""
     print(music_files)
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
@@ -173,33 +151,11 @@ def upload():
         results = run_the_code(pass_x)
 
         boyfriend_result = results[0][1]
-        #print ("HELLOOOOOO"+ str(boyfriend_result))
-        #print(results[1][1] + ": " + str(results[1][0]))
-
-        r1=results[1][1] + ": " + str(results[1][0])
-        r2=results[2][1] + ": " + str(results[2][0])
-        r3=results[3][1] + ": " + str(results[3][0])
-        r4=results[4][1] + ": " + str(results[4][0])
-        r5=results[5][1] + ": " + str(results[5][0])
-        r6=results[6][1] + ": " + str(results[6][0])
-        r7=results[7][1] + ": " + str(results[7][0])
-
-        print (results)
-
-        #print("LENGTH" + str(length_map[results[0][1]]))
-        #print("HEYSFSL" + str(results[0][0]))
-
-        length_of_rel= str(length_map[results[0][1]]*results[0][0]+length_map[results[1][1]]*results[1][0]+ length_map[results[2][1]]*results[2][0] + length_map[results[3][1]]*results[3][0] + length_map[results[4][1]]*results[4][0] + length_map[results[5][1]]*results[5][0] + length_map[results[6][1]]*results[6][0])
-        
-        #length_of_rel= str(length_map[results[0][2]]*results[2][0])
-
-        #print ("HEEYYEYYYYY"+length_of_rel)
-
         song_to_play = song_map[boyfriend_result]
         print(results)
 
         # return filename
-    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel)
+    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, music_files=music_files)
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):
