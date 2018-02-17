@@ -153,6 +153,25 @@ def combine_faces(name1, name2, name3):
     new_img2 = Image.blend(new_img, layer3, 0.5)
     new_img2.save("./static/img/Overlay/Blend.png","PNG")
 
+def get_face(name):
+    face = io.imread(name)
+    detect = detect_faces(face)
+
+    for n, face_rect in enumerate(detect):
+        face = Image.fromarray(face).crop(face_rect)
+
+
+    face = face.convert("RGBA")
+
+    face = face.resize((140, 140), Image.BILINEAR)
+
+    img = Image.open('tyalor-tom.jpg')
+    img_w, img_h = face.size
+    offset = (img_w-20, img_h / 6)
+    img.paste(face, offset)
+    img.save("./static/img/Shopped/New.jpg")
+
+
 ########## MAPS ###########
 
 song_map = {
@@ -206,6 +225,7 @@ def upload():
     print(os.listdir(music_dir))
     song_to_play = -1
     blend = False
+    shopped = False
     music_files = [f for f in os.listdir(music_dir) if f.endswith('mp3')]
     r0=""
     r1=""
@@ -250,12 +270,14 @@ def upload():
         bf_image2 = BF_IMAGE_DIR + image_map[results[1][1]]
         bf_image3 = BF_IMAGE_DIR + image_map[results[2][1]]
 
+        get_face("./static/img/" + filename)
         combine_faces(bf_image2, bf_image3, bf_image1)
         blend = True
+        shopped = True
 
         print(results)
 
-    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r0=r0, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel, blend=blend)
+    return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r0=r0, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel, blend=blend, shopped=shopped)
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):
