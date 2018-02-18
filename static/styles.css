@@ -80,24 +80,7 @@ div.introcontainer {
 }
 
 
-input[type="submit"] 
 
-{
- border: 0;
- background: none;
- box-shadow: none;
- border-radius: 0px;
-}
-
-
-input[type="file"] 
-
-{
- border: 0;
- background: none;
- box-shadow: none;
- border-radius: 0px;
-}
 
 @keyframes loop-img {
     0% { background-image: url(IntroIMG/calvin.png); }
@@ -216,3 +199,54 @@ input[type="file"]
         margin-left:50px;
     }
 }
+
+
+
+figure{
+    width: 600px;
+}
+
+.card {
+  background: #fdf7ef;
+  box-shadow: 6px 6px 5px gray;
+  width: 490px;
+  height: 400px;
+  padding: 5px;
+}
+.card_title {
+  height: 60px;
+  width: 100%;
+  position: relative;
+}
+.card_row {
+  height: 30px;
+  width: 100%;
+  position: relative;
+}
+.redline {
+  width: 100%;
+  background-color: red;
+  height: 4px;
+}
+.blueline {
+  width: 100%;
+  background-color: steelblue;
+  height: 2px;
+}
+.text_title {
+  font-family: 'Seaweed Script', cursive;
+  font-size: 2em;
+  bottom: 0;
+  position: absolute;
+  font-weight: bold;
+}
+.text {
+  font-family: 'Seaweed Script', cursive;
+  font-size: 1em;
+  bottom: 0;
+  position: absolute;
+}
+
+
+
+

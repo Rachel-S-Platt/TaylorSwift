@@ -3,14 +3,16 @@
 
 <html>
   <head>
+    
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
 
-    <title>Hello World Template</title>
+    <title>Taylor</title>
   </head>
   <body>
     <h1>Taylor'd To You</h1>
+
     <div class="introcontainer">
       <div class="taylor inline"></div>
       <h1 class="inline">+</h1>
@@ -21,12 +23,17 @@
         <input type=file name=photo>
         <input type="submit">
       </form>
+        
+               
+
       {% if boyfriend_result != "" %}
         <h2>Your match is {{ boyfriend_result }}!</h2>
       {% endif %}
 
       <h4>Relationship Scorecard:</h4>
       <h4>{{r0}}<br>{{r1}}<br>{{r2}}<br>{{r3}}<br>{{r4}}<br>{{r5}}<br>{{r6}}<br>{{r7}}<br></h4>
+        
+
 
       {% if shopped == True %}
         <img src="/static/img/Shopped/New.jpg" />
@@ -37,8 +44,19 @@
         <h4>This is probably what you look like</h4>
         <img src="/static/img/Overlay/Blend.png" />
       {% endif %}
+        
+    {% if blend == True %}
+    <figure >
+      <embed type="image/svg+xml" src="static/img/chart.svg" />
+    </figure>
+    {% endif %}
+        
+        
 
       <h4> Length of relationship: {{length_of_rel}} months</h4>
+        
+        
+        
       <div id="hearts">
           <div class="heart x1"></div>
           <div class="heart x2"></div>
@@ -47,5 +65,45 @@
           <div class="heart x5"></div>
       </div>
     </div>
+      
+      
+      
+      
+      
+      <div class="card">
+<div class="card_title">
+  <span class="text_title">Your Relationship Scorecard</span>
+</div>
+<div class="redline"></div>
+<div class="card_row">
+  <span class="text">
+{{r0}}   
+</span>
+</div>
+<div class="blueline"></div>
+<div class="card_row">
+  <span class="text">{{r1}}</span>
+</div>
+<div class="blueline"></div>
+<div class="card_row">
+  <span class="text">{{r2}}</span>
+</div>
+<div class="blueline"></div>
+<div class="card_row"><span class="text">{{r3}}</span></div>
+<div class="blueline"></div>
+<div class="card_row"><span class="text">{{r4}}</span></div>
+<div class="blueline"></div>
+<div class="card_row"><span class="text">{{r5}}</span></div>
+<div class="blueline"></div>
+<div class="card_row"><span class="text">{{r6}}</span></div>
+<div class="blueline"></div>
+<div class="card_row"><span class="text">{{r7}}</span></div>
+<div class="blueline"></div>
+</div>
+      
+      
+
+      
+      
   </body>
 </html>

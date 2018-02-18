@@ -15,6 +15,9 @@ from PIL import Image
 from skimage import io
 import dlib
 
+import pygal
+from pygal.style import DarkSolarizedStyle
+
 # Alex's Tensorflow code
 ########################################
 
@@ -234,6 +237,7 @@ def upload():
     song_to_play = -1
     blend = False
     shopped = False
+    graph_gen= False
     music_files = [f for f in os.listdir(music_dir) if f.endswith('mp3')]
     r0=""
     r1=""
@@ -280,12 +284,35 @@ def upload():
 
         get_face("./static/img/" + filename)
         combine_faces(bf_image2, bf_image3, bf_image1)
+        graphgen(results)
+        graph_gen=True
         blend = True
         shopped = True
 
         print(results)
 
     return render_template('index.html', boyfriend_result=boyfriend_result, song_to_play=song_to_play, r0=r0, r1=r1, r2=r2, r3=r3, r4=r4, r5=r5, r6=r6, r7=r7, length_of_rel=length_of_rel, blend=blend, shopped=shopped)
+
+
+
+
+## make a graph
+
+
+def graphgen(results):
+    
+    line_chart = pygal.Bar()
+    line_chart.title = 'Similarity rankings'
+    
+    line_chart.x_labels = results[0][1], results[1][1], results[2][1], results[3][1], results[4][1], results[5][1], results[6][1], results[7][1]
+    
+    line_chart.add('Similarity', [results[0][0], results[1][0], results[2][0], results[3][0], results[4][0], results[5][0], results[6][0], results[7][0]])
+    line_chart.render_to_file('./static/img/chart.svg')
+#    line_chart = line_chart.render_data_uri()
+#    return render_template('index.html', line_chart=line_chart)
+#    
+
+
 
 @app.route('/<string:page_name>/')
 def render_static(page_name):
