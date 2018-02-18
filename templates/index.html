@@ -3,7 +3,9 @@
 
 <html>
   <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
+      <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
@@ -11,65 +13,41 @@
     <title>Taylor</title>
   </head>
   <body>
-    <h1>Taylor'd To You</h1>
+    <h1 class="headers">Taylor'd To You</h1>
 
     <div class="introcontainer">
       <div class="taylor inline"></div>
       <h1 class="inline">+</h1>
       <div class="introimg inline"></div>
     </div>
-    <div class="center_this">
+   
+{% if boyfriend_result == "" %}
+   <div class="row">
+    <div class="resultview">
+    <h2>To get started, upload a photo of yourself!</h2>
       <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
         <input type=file name=photo>
         <input type="submit">
       </form>
-        
-               
-
-      {% if boyfriend_result != "" %}
-        <h2>Your match is {{ boyfriend_result }}!</h2>
-      {% endif %}
-
-      <h4>Relationship Scorecard:</h4>
-      <h4>{{r0}}<br>{{r1}}<br>{{r2}}<br>{{r3}}<br>{{r4}}<br>{{r5}}<br>{{r6}}<br>{{r7}}<br></h4>
-        
-
-
-      {% if shopped == True %}
-        <img src="/static/img/Shopped/New.jpg" />
-      {% endif %}
-
-      {% if blend == True %}
-        <h4>We took your top 3 matches and combined them</h4>
-        <h4>This is probably what you look like</h4>
-        <img src="/static/img/Overlay/Blend.png" />
-      {% endif %}
-        
-    {% if blend == True %}
-    <figure >
-      <embed type="image/svg+xml" src="static/img/chart.svg" />
-    </figure>
-    {% endif %}
-        
-        
-
-      <h4> Length of relationship: {{length_of_rel}} months</h4>
-        
-        
-        
-      <div id="hearts">
-          <div class="heart x1"></div>
-          <div class="heart x2"></div>
-          <div class="heart x3"></div>
-          <div class="heart x4"></div>
-          <div class="heart x5"></div>
-      </div>
     </div>
-      
-      
-      
-      
-      
+       </div>
+{% endif %}
+        
+    
+        
+      {% if boyfriend_result != "" %}
+        <div class="row">
+        <h2 class="resultview">Your match is {{ boyfriend_result }}!</h2>
+        </div>
+      {% endif %}
+
+               
+<div class="row row-margin-top">
+<!--
+  <div class="col-sm-4 center_this">
+    
+    
+    {% if boyfriend_result != "" %}    
       <div class="card">
 <div class="card_title">
   <span class="text_title">Your Relationship Scorecard</span>
@@ -100,8 +78,115 @@
 <div class="card_row"><span class="text">{{r7}}</span></div>
 <div class="blueline"></div>
 </div>
+  {% endif %} 
+    
+    
+    
+    </div>
+-->
+    
+    
+    
+    <div class="col-sm-1 center_this">
+      <div class="content-column-content">
+    </div>
+      </div>
+    <div class="col-sm-5 center_this">
+      <div class="content-column-content">
+    
+    {% if shopped == True %}
+        <img class="styledimg" src="/static/img/Shopped/New.jpg" width="450px"/>
+      {% endif %}
+    
+    </div>
+      </div>
+  <div class="col-sm-5 center_this">
+      <div class="content-column-content">
+    
+    
+    {% if blend == True %}
+    <figure >
+      <embed type="image/svg+xml" src="static/img/chart.svg" />
+    </figure>
+    {% endif %}
+    </div>
+    </div>
+        <div class="col-sm-1 center_this">
+      <div class="content-column-content">
+    </div>
+      </div>
+</div>
+        
+
+<!--
+    {% if boyfriend_result != "" %}  
+    <h4>Relationship Scorecard:</h4>
+      <h4>{{r0}}<br>{{r1}}<br>{{r2}}<br>{{r3}}<br>{{r4}}<br>{{r5}}<br>{{r6}}<br>{{r7}}<br></h4>
+    {% endif %} 
+-->
+
       
       
+      
+<div class="row row-margin-top">
+
+    
+    
+    <div class="col-sm-1 center_this">
+      <div class="content-column-content">
+    </div>
+      </div>
+
+  <div class="col-sm-5 center_this">
+      <div class="content-column-content">
+     {% if boyfriend_result != "" %}
+    <h3>We took your top 3 matches and combined them.</h3>
+        <h3>This is probably what you look like: </h3>
+       
+   <br><br>
+     
+      <div class="resultview" id="rellength">   
+        <h4> Your relationship will last:</h4>
+        <h5>{{length_of_rel}}</h5>
+     <h4>Months</h4>
+    </div> 
+    {% endif %}   
+    </div>
+    </div>
+    
+    <div class="col-sm-5 center_this">
+      <div class="content-column-content">
+    
+      {% if blend == True %}
+        <img class="styledimg" src="/static/img/Overlay/Blend.png" width="500px"/>
+      {% endif %}
+    
+    </div>
+      </div>
+        <div class="col-sm-1 center_this">
+      <div class="content-column-content">
+    </div>
+      </div>
+</div>
+
+
+
+        
+        
+        
+      <div id="hearts">
+          <div class="heart x1"></div>
+          <div class="heart x2"></div>
+          <div class="heart x3"></div>
+          <div class="heart x4"></div>
+          <div class="heart x5"></div>
+      </div>
+    
+      
+      
+      
+      
+
 
       
       

@@ -16,7 +16,7 @@ from skimage import io
 import dlib
 
 import pygal
-from pygal.style import DarkSolarizedStyle
+from pygal.style import Style
 
 # Alex's Tensorflow code
 ########################################
@@ -298,10 +298,21 @@ def upload():
 
 ## make a graph
 
+custom_style = Style(
+  background='transparent',
+  plot_background='transparent',
+  foreground='#000000',
+  foreground_strong='#000000',
+  foreground_subtle='#630C0D',
+  opacity='.6',
+  opacity_hover='.9',
+  transition='400ms ease-in',
+  colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'))
+
 
 def graphgen(results):
     
-    line_chart = pygal.Bar()
+    line_chart = pygal.Bar(style=custom_style, show_legend=False)
     line_chart.title = 'Similarity rankings'
     
     line_chart.x_labels = results[0][1], results[1][1], results[2][1], results[3][1], results[4][1], results[5][1], results[6][1], results[7][1]
