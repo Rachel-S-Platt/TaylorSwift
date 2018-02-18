@@ -157,15 +157,15 @@ def combine_faces(name1, name2, name3):
     new_img2.save("./static/img/Overlay/Blend.png","PNG")
 
 def get_face(name):
-    face = io.imread(name)
+    face = cv2.imread(name)
+    b,g,r = cv2.split(face)           # get b, g, r
+    face = cv2.merge([r,g,b])
+    face2 = Image.fromarray(face)
+    face2.save("Rachl.jpg")
+
     detect = detect_faces(face)
-
-    for n, face_rect in enumerate(detect):
-        face = Image.fromarray(face).crop(face_rect)
-
-
-    face = face.convert("RGBA")
-
+    face = Image.fromarray(face)
+    face = face.crop(detect[0])
     face = face.resize((140, 140), Image.BILINEAR)
 
     img = Image.open('tyalor-tom.jpg')
@@ -311,17 +311,17 @@ custom_style = Style(
 
 
 def graphgen(results):
-    
+
     line_chart = pygal.Bar(style=custom_style, show_legend=False)
     line_chart.title = 'Similarity rankings'
-    
+
     line_chart.x_labels = results[0][1], results[1][1], results[2][1], results[3][1], results[4][1], results[5][1], results[6][1], results[7][1]
-    
+
     line_chart.add('Similarity', [results[0][0], results[1][0], results[2][0], results[3][0], results[4][0], results[5][0], results[6][0], results[7][0]])
     line_chart.render_to_file('./static/img/chart.svg')
 #    line_chart = line_chart.render_data_uri()
 #    return render_template('index.html', line_chart=line_chart)
-#    
+#
 
 
 
