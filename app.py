@@ -275,7 +275,7 @@ def upload():
 
         print (results)
 
-        length_of_rel= str(length_map[results[0][1]]*results[0][0]+length_map[results[1][1]]*results[1][0]+ length_map[results[2][1]]*results[2][0] + length_map[results[3][1]]*results[3][0] + length_map[results[4][1]]*results[4][0] + length_map[results[5][1]]*results[5][0] + length_map[results[6][1]]*results[6][0])
+        length_of_rel= str(round(length_map[results[0][1]]*results[0][0]+length_map[results[1][1]]*results[1][0]+ length_map[results[2][1]]*results[2][0] + length_map[results[3][1]]*results[3][0] + length_map[results[4][1]]*results[4][0] + length_map[results[5][1]]*results[5][0] + length_map[results[6][1]]*results[6][0], 4))
         song_to_play = song_map[boyfriend_result]
 
         bf_image1 = BF_IMAGE_DIR + image_map[results[0][1]]
@@ -307,7 +307,14 @@ custom_style = Style(
   opacity='.6',
   opacity_hover='.9',
   transition='400ms ease-in',
-  colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'))
+  colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'),
+legend_font_size = 14.0,
+value_font_size = 14.0,
+tooltip_font_size = 14.0,
+major_label_font_size = 14.0,
+label_font_size = 14.0,
+value_label_font_size = 14.0
+)
 
 
 def graphgen(results):
